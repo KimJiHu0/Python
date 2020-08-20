@@ -17,7 +17,7 @@ print('-------')
 a, b = 3, 5 # a = 3 / b = 5
 print(a == b) # false
 print(a != b) # true
-print(a > b) # falsse
+print(a > b) # false
 print(a <= b) # true
 print(a is b) # false
 print(a is not b) #true
