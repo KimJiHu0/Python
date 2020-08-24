@@ -33,8 +33,20 @@ def lotto():
     # return할거야
     return list
 
+def lotto1():
+    lotto = set()
+    
+    while len(lotto1) <= 6:
+        ran = random.randint(1, 45)
+        lotto1.add(ran)
+        
+    result = sorted(lotto1)
+    print(result)
+
 
 # 아래의 뜻은 main함수라는 뜻이야.
 if __name__ == '__main__':
     #return했으니까 pinrt()로 lotto함수를 불러와
     print(lotto())
+    
+    print(lotto1())
