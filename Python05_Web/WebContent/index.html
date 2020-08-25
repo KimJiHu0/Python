@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script type="text/javascript">
+	// 현재 이 프로젝트를 실행시킬 때에는 Python05 프로젝트를 먼저 실행시켜주고, 크롤링 한 파일을 서버에 올려준 다음에 
+	// 프로젝트를 실행시켜주어야 크롤링이 제대로 될 수 있다.
+	
+	
+	// 이 html이 열리자마자 아래의 구문들을 실행해줄거야
+	onload=function(){
+		var $tbody = $('#tbody')
+		// 세미프로젝트랑 관련있ㄴ.....
+		// http://127.0.0.1:8585/crawling로 요청하여, 응답받은 json을 tbody에 출력.
+		
+		// 우리가 크롤링해서 제목과 별점을 가져와 json형태로 만들어놓은 url을 가져와서 사용한다. 가져온 데이터는 data라는 이름으로 담김
+		$.getJSON('http://127.0.0.1:8585/crawling', function(data){
+			// movies라는 이름으로 data에 있는 movies를 담아준다.
+			// [{"title" : "다만 악에서 구하소서", "star" : "7.79"}, {"title" : "오케이 마담", "star" : "6.63"}, ...]
+			// 형태로 담기게 된다.
+			var movies = data.movies;
+			// console.log(data);
+			console.log(movies);
+			// 넘어온 json값 뿌리기.
+			
+			// 정렬해주려는 함수인데 별점 a와b를 받아서 b가 a보다 높다면 b를 앞으로 떙겨준다.
+			// b - a가 양수면 b를 앞으로 / b - a가 음수면 그대로 냅둔다.
+			movies.sort(function(a,b){
+				return b.star - a.star;
+			})
+			
+			// movies에 담겨있는 length만큼 (array가 133개 있기 떄문에 133번) for문을 돌릴건데
+			for(var i = 0; i < movies.length; i++){
+				// tr을 for문이 돌아갈때마다 하나씩 만들어주고
+				var $tr = $("<tr>");
+				// title이라는 변수에는 th태그를 거기에 append해주는데 movies의 i번지에 있는 title값을 담았고,
+				var $title = $("<th>").append(movies[i].title);
+				// star이라는 변수에는 td태그를 만들었고 거기에 append를 해준다. movies의 i번지에 있는 star이라는 값을 담았다.
+				var $star = $("<td>").append(movies[i].star);
+				
+				//tr에 title을 붙여주고,
+				$tr.append($title)
+				//tr에 star를 붙여주고.
+				$tr.append($star)
+				//다 붙인 tr을 tbody에 붙여준다
+				$tbody.append($tr)
+			}
+		})
+	}
+</script>
+</head>
+<body>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<td>Star</td>
+			</tr>
+		</thead>
+		<tbody id="tbody"></tbody>
+	</table>
+
+</body>
+</html>
