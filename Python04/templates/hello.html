@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- css링크걸기 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}"/>
+
+</head>
+<body>
+<!-- 템플릿으로 구현한 html임 -->
+<!-- html내에서 java사용은 < % % > / html내에서 python사용은 { % % } : 얘네들은 컴파일을 해주는 애들이야-->
+{% if name %}
+	<h1>Hello, {{name}}</h1>
+{% else %}
+	<h1>Hello, World!</h1>
+{% endif %}
+<!-- 끝이 났을 때에는 endif를 써줘야한다./ for문을 썼다면 endfor를 써줘야한다. -->
+
+	<!-- /test라는 이름으로 그리고 post방식으로 넘길거다. -->
+	<form action="/test" method="POST">
+		<!-- command값을 value test로 칭해주고  test라는 이름으로 날려줘-->
+		<input type="hidden" name="command" value="value test"/>
+		<input type="submit" value="test"/>
+ 	</form>
+
+</body>
+</html>
